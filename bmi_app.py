@@ -19,3 +19,13 @@ app.layout = html.Div([
                 inlineq=True)],
                 style={'padding': '10px'}),
     html.Div([
+        html.Label("Weight:"),
+        dcc.Input(id='weight-input', type='number', placeholder='Enter weight here', step=0.01),
+        dcc.RadioItems(
+            id='weight-unit',
+            options=[
+                {'label': 'Kilograms (kg)', 'value': 'kg'},
+                {'label': 'Pounds (lb)', 'value': 'lb'}]),
+                value='kg'
+                inlineq=True)],
+                style={'padding': '10px'}),)
