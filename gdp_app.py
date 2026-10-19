@@ -48,5 +48,8 @@ return clean_df
 # load data
 df = load_data()
 
+#create dropdown for region selection
+source = st.selectbox("Select GDP Source:", ['IMF', 'WorldBank', 'UN'])
+
 
 
