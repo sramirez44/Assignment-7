@@ -13,19 +13,23 @@ st.write("This app displays GDP of different world regions in a stacked bar char
 # create cache of the wiki data
 @st.cache_data
 def load_data():
-    url = "https://en.wikipedia.org/wiki/List_of_countries_by_GDP_(nominal)"
+    url = "https://en.wikipedia.org/w/index.php?title=List_of_countries_by_GDP_(nominal)&oldid=1187446467"
     response = rq.get(url, headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36'})
     soup = bs4.BeautifulSoup(response.text, 'html.parser')
 
-# extracting the tables
+    # extract tables
     tables = pd.read_html(StringIO(str(soup)))
     df = tables[2]
 
-# select and rename columns
-    clean_df = df.iloc[:, [0, 1, 2, 4, 6]].copy()
+    # parse table 
+    try:
+        clean_df = df.iloc[:, [0, 1, 2, 4, 6]].copy()
+    except IndexError:
+        clean_df = df.iloc[:, [0, 1, 2, 3, 4]].copy()
+        
     clean_df.columns = ['Country', 'Region', 'IMF', 'WorldBank', 'UN']
 
-# convert to numeric
+    # convert to numeric
     for col in ['IMF', 'WorldBank', 'UN']:
         clean_df[col] = (
             clean_df[col]
@@ -35,10 +39,10 @@ def load_data():
         )
         clean_df[col] = pd.to_numeric(clean_df[col], errors='coerce')
 
-# remove the world row
+    # remove the world row
     clean_df = clean_df[clean_df['Country'] != 'World'].copy()
 
-# missing values
+    # missing values
     clean_df['IMF'] = clean_df['IMF'].fillna(clean_df['WorldBank']).fillna(clean_df['UN'])
     clean_df['WorldBank'] = clean_df['WorldBank'].fillna(clean_df['IMF']).fillna(clean_df['UN'])
     clean_df['UN'] = clean_df['UN'].fillna(clean_df['IMF']).fillna(clean_df['WorldBank'])
@@ -52,10 +56,7 @@ df = load_data()
 source = st.selectbox("Select GDP Source:", ['IMF', 'WorldBank', 'UN'])
 
 #create plot
-fig = px.bar(df, x='Region', y=source, color='Country', title=f'GDP by Region ({source})', labels={source: 'GDP (in USD)'}, text_auto=True)
+fig = px.bar(df, x='Region', y=source, color='Country', title=f'GDP by Region ({source})', labels={source: 'GDP (in USD)'})
 
 # display plot
-
-
-
-
+st.plotly_chart(fig, use_container_width=True)
