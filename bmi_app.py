@@ -15,10 +15,10 @@ app.layout = html.Div([
             id='height-unit',
             options=[
                 {'label': 'Meters (m)', 'value': 'm'},
-                {'label': 'Feet (ft)', 'value': 'ft'}]),
-                value='m'
-                inlineq=True)],
-                style={'padding': '10px'}),
+                {'label': 'Feet (ft)', 'value': 'ft'}],
+            value='m',
+            inline=True)
+    ], style={'padding': '10px'}),
     html.Div([
         html.Label("Weight:"),
         dcc.Input(id='weight-input', type='number', placeholder='Enter weight here', step=0.01),
@@ -26,13 +26,14 @@ app.layout = html.Div([
             id='weight-unit',
             options=[
                 {'label': 'Kilograms (kg)', 'value': 'kg'},
-                {'label': 'Pounds (lb)', 'value': 'lb'}]),
-                value='kg'
-                inlineq=True)],
-                style={'padding': '10px'}),
+                {'label': 'Pounds (lb)', 'value': 'lb'}],
+            value='kg',
+            inline=True)
+    ], style={'padding': '10px'}),
 
-html.Br(),
-html.H2(id='bmi-output', style={'color': 'blue'}])
+    html.Br(),
+    html.H2(id='bmi-output', style={'color': 'blue'})
+])
 
 # app callback for calculating the bmi
 @app.callback(
@@ -48,11 +49,11 @@ def calculate_bmi(height, height_unit, weight, weight_unit):
     
     # convert height to m if in ft
     if height_unit == 'ft':
-        height = height * 0.3048  # 1 foot = 0.3048 meters
+        height = height * 0.3048 
     
     # convert weight to kg if in lbs
     if weight_unit == 'lb':
-        weight = weight * 0.453592  # 1 pound = 0.453592 kilograms
+        weight = weight * 0.453592  
     
     # calculate bmi
     bmi = weight / (height ** 2)
