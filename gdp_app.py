@@ -37,3 +37,9 @@ for col in ['IMF', 'WorldBank', 'UN']:
 
 # remove the world row
 clean_df = clean_df[clean_df['Country'] != 'World'].copy()
+
+# missing values
+clean_df['IMF'] = clean_df['IMF'].fillna(clean_df['WorldBank']).fillna(clean_df['UN'])
+clean_df['WorldBank'] = clean_df['WorldBank'].fillna(clean_df['IMF']).fillna(clean_df['UN'])
+clean_df['UN'] = clean_df['UN'].fillna(clean_df['IMF']).fillna(clean_df['WorldBank'])
+
