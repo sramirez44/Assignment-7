@@ -43,3 +43,18 @@ html.H2(id='bmi-output', style={'color': 'blue'}])
      Input('weight-unit', 'value')])
 
 def calculate_bmi(height, height_unit, weight, weight_unit):
+    if height is None or weight is None:
+        return "Please enter both height and weight."
+    
+    # convert height to m if in ft
+    if height_unit == 'ft':
+        height = height * 0.3048  # 1 foot = 0.3048 meters
+    
+    # convert weight to kg if in lbs
+    if weight_unit == 'lb':
+        weight = weight * 0.453592  # 1 pound = 0.453592 kilograms
+    
+    # calculate bmi
+    bmi = weight / (height ** 2)
+    
+    return f"Your BMI is: {bmi:.2f}"
