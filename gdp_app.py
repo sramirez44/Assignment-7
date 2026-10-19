@@ -18,5 +18,9 @@ def load_data():
     soup = bs4.BeautifulSoup(response.text, 'html.parser')
 
  # extracting the tables
- tables = pd.read_html(str(soup))
+tables = pd.read_html(str(soup))
 df = tables[2]
+
+    # select and rename columns
+clean_df = df.iloc[:, [0, 1, 2, 4, 6]].copy()
+clean_df.columns = ['Country', 'Region', 'IMF', 'WorldBank', 'UN']
