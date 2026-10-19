@@ -10,3 +10,6 @@ from io import StringIO
 st.title("GDP by Region")
 st.write("This app displays GDP of different world regions in a stacked bar chart.")
 
+# create cache of the wiki data
+@st.cache_data
+def load_data():
