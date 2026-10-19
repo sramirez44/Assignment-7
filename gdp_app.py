@@ -17,10 +17,20 @@ def load_data():
     response = rq.get(url, headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36'})
     soup = bs4.BeautifulSoup(response.text, 'html.parser')
 
- # extracting the tables
+# extracting the tables
 tables = pd.read_html(str(soup))
 df = tables[2]
 
-    # select and rename columns
+# select and rename columns
 clean_df = df.iloc[:, [0, 1, 2, 4, 6]].copy()
 clean_df.columns = ['Country', 'Region', 'IMF', 'WorldBank', 'UN']
+
+# convert to numeric
+for col in ['IMF', 'WorldBank', 'UN']:
+        clean_df[col] = (
+            clean_df[col]
+            .astype(str)
+            .str.replace(',', '', regex=False)
+            .str.strip()
+        )
+        clean_df[col] = pd.to_numeric(clean_df[col], errors='coerce')
