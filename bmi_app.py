@@ -8,5 +8,14 @@ app = dash.Dash(__name__)
 app.layout = html.Div([
     html.H1("BMI Calculator"),
     html.Div([
-        html.Label("Height (m):"),
-        dcc.Input(id='heigh-input' type='number',placeholder='Enter height in meters', step=0.01), 
+        html.Label("Height:"),
+        dcc.Input(id='height-input', type='number', placeholder='Enter height here', step=0.01),
+        dcc.RadioItems(
+            id='height-unit',
+            options=[
+                {'label': 'Meters (m)', 'value': 'm'},
+                {'label': 'Feet (ft)', 'value': 'ft'}]),
+                value='m'
+                inlineq=True)],
+                style={'padding': '10px'}),
+    html.Div([
