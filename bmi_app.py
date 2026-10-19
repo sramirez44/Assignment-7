@@ -62,4 +62,4 @@ def calculate_bmi(height, height_unit, weight, weight_unit):
 
 # run app
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run(debug=True)
