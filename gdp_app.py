@@ -43,3 +43,10 @@ clean_df['IMF'] = clean_df['IMF'].fillna(clean_df['WorldBank']).fillna(clean_df[
 clean_df['WorldBank'] = clean_df['WorldBank'].fillna(clean_df['IMF']).fillna(clean_df['UN'])
 clean_df['UN'] = clean_df['UN'].fillna(clean_df['IMF']).fillna(clean_df['WorldBank'])
 
+return clean_df
+
+# load data
+df = load_data()
+
+
+
