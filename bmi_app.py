@@ -58,3 +58,7 @@ def calculate_bmi(height, height_unit, weight, weight_unit):
     bmi = weight / (height ** 2)
     
     return f"Your BMI is: {bmi:.2f}"
+
+# run app
+if __name__ == '__main__':
+    app.run_server(debug=True)
