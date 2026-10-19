@@ -32,7 +32,7 @@ app.layout = html.Div([
                 style={'padding': '10px'}),
 
 html.Br(),
-html.H2(id='bmi-output', style={'color': 'blue'})])
+html.H2(id='bmi-output', style={'color': 'blue'}])
 
 # app callback for calculating the bmi
 @app.callback(
@@ -40,4 +40,6 @@ html.H2(id='bmi-output', style={'color': 'blue'})])
     [Input('height-input', 'value'),
      Input('height-unit', 'value'),
      Input('weight-input', 'value'),
-     Input('weight-unit', 'value')]
+     Input('weight-unit', 'value')])
+
+def calculate_bmi(height, height_unit, weight, weight_unit):
