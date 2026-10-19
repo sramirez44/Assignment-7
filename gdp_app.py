@@ -18,7 +18,7 @@ def load_data():
     soup = bs4.BeautifulSoup(response.text, 'html.parser')
 
 # extracting the tables
-    tables = pd.read_html(str(soup))
+    tables = pd.read_html(StringIO(str(soup)))
     df = tables[2]
 
 # select and rename columns
