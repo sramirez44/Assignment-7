@@ -9,4 +9,4 @@ app.layout = html.Div([
     html.H1("BMI Calculator"),
     html.Div([
         html.Label("Height (m):"),
-        dcc.Input(id='heigh-input' type='number',placeholder='Enter height in meters', step=0.01),
+        dcc.Input(id='heigh-input' type='number',placeholder='Enter height in meters', step=0.01), 
