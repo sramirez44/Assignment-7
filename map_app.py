@@ -13,5 +13,8 @@ lat = st.number_input("Enter Latitude:", value=0.0, format="%.5f")
 # create dataframe from inputs
 df = pd.DataFrame({
     'lat': [lat],
-    'lon': [lon]
+    'lon': [long]
 })
+
+# display map
+st.map(df, zoom=10)
