@@ -18,15 +18,15 @@ def load_data():
     soup = bs4.BeautifulSoup(response.text, 'html.parser')
 
 # extracting the tables
-tables = pd.read_html(str(soup))
-df = tables[2]
+    tables = pd.read_html(str(bs4.soup))
+    df = tables[2]
 
 # select and rename columns
-clean_df = df.iloc[:, [0, 1, 2, 4, 6]].copy()
-clean_df.columns = ['Country', 'Region', 'IMF', 'WorldBank', 'UN']
+    clean_df = df.iloc[:, [0, 1, 2, 4, 6]].copy()
+    clean_df.columns = ['Country', 'Region', 'IMF', 'WorldBank', 'UN']
 
 # convert to numeric
-for col in ['IMF', 'WorldBank', 'UN']:
+    for col in ['IMF', 'WorldBank', 'UN']:
         clean_df[col] = (
             clean_df[col]
             .astype(str)
@@ -36,14 +36,14 @@ for col in ['IMF', 'WorldBank', 'UN']:
         clean_df[col] = pd.to_numeric(clean_df[col], errors='coerce')
 
 # remove the world row
-clean_df = clean_df[clean_df['Country'] != 'World'].copy()
+    clean_df = clean_df[clean_df['Country'] != 'World'].copy()
 
 # missing values
-clean_df['IMF'] = clean_df['IMF'].fillna(clean_df['WorldBank']).fillna(clean_df['UN'])
-clean_df['WorldBank'] = clean_df['WorldBank'].fillna(clean_df['IMF']).fillna(clean_df['UN'])
-clean_df['UN'] = clean_df['UN'].fillna(clean_df['IMF']).fillna(clean_df['WorldBank'])
+    clean_df['IMF'] = clean_df['IMF'].fillna(clean_df['WorldBank']).fillna(clean_df['UN'])
+    clean_df['WorldBank'] = clean_df['WorldBank'].fillna(clean_df['IMF']).fillna(clean_df['UN'])
+    clean_df['UN'] = clean_df['UN'].fillna(clean_df['IMF']).fillna(clean_df['WorldBank'])
 
-return clean_df
+    return clean_df
 
 # load data
 df = load_data()
