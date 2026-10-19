@@ -54,6 +54,8 @@ source = st.selectbox("Select GDP Source:", ['IMF', 'WorldBank', 'UN'])
 #create plot
 fig = px.bar(df, x='Region', y=source, color='Country', title=f'GDP by Region ({source})', labels={source: 'GDP (in USD)'}, text_auto=True)
 
+# display plot
+
 
 
 
