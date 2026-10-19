@@ -13,3 +13,10 @@ st.write("This app displays GDP of different world regions in a stacked bar char
 # create cache of the wiki data
 @st.cache_data
 def load_data():
+    url = "https://en.wikipedia.org/wiki/List_of_countries_by_GDP_(nominal)"
+    response = rq.get(url, headers={'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.114 Safari/537.36'})
+    soup = bs4.BeautifulSoup(response.text, 'html.parser')
+
+ # extracting the tables
+ tables = pd.read_html(str(soup))
+df = tables[2]
