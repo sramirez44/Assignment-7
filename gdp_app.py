@@ -34,3 +34,6 @@ for col in ['IMF', 'WorldBank', 'UN']:
             .str.strip()
         )
         clean_df[col] = pd.to_numeric(clean_df[col], errors='coerce')
+
+# remove the world row
+clean_df = clean_df[clean_df['Country'] != 'World'].copy()
