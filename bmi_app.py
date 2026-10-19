@@ -28,4 +28,7 @@ app.layout = html.Div([
                 {'label': 'Pounds (lb)', 'value': 'lb'}]),
                 value='kg'
                 inlineq=True)],
-                style={'padding': '10px'}),)
+                style={'padding': '10px'}),
+
+html.Br(),
+html.H2(id='bmi-output', style={'color': 'blue'})])
