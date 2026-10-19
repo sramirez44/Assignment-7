@@ -7,6 +7,7 @@ app = dash.Dash(__name__)
 # create app layout
 app.layout = html.Div([
     html.H1("BMI Calculator"),
+    # create input fields for height and weight
     html.Div([
         html.Label("Height:"),
         dcc.Input(id='height-input', type='number', placeholder='Enter height here', step=0.01),
@@ -32,3 +33,11 @@ app.layout = html.Div([
 
 html.Br(),
 html.H2(id='bmi-output', style={'color': 'blue'})])
+
+# app callback for calculating the bmi
+@app.callback(
+    Output('bmi-output', 'children'),
+    [Input('height-input', 'value'),
+     Input('height-unit', 'value'),
+     Input('weight-input', 'value'),
+     Input('weight-unit', 'value')]
